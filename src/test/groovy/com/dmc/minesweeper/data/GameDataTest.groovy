@@ -9,7 +9,7 @@ import groovy.transform.NamedParams
 
 import static groovy.lang.Closure.DELEGATE_ONLY
 
-trait GameDataTestBuilder extends DataTest {
+trait GameDataTest extends DataTest {
 
     Game game
     Integer amountRows = 2
@@ -17,8 +17,8 @@ trait GameDataTestBuilder extends DataTest {
     Integer amountMines = 0
     List<Tile> tiles = []
 
-    GameDataTestBuilder aGame(
-            @DelegatesTo(value = GameDataTestBuilder, strategy = DELEGATE_ONLY)
+    GameDataTest aGame(
+            @DelegatesTo(value = GameDataTest, strategy = DELEGATE_ONLY)
                     Closure closure
     ) {
         mockDomains Game, Board, Tile
@@ -44,7 +44,7 @@ trait GameDataTestBuilder extends DataTest {
         }
     }
 
-    GameDataTestBuilder with(
+    GameDataTest with(
             @NamedParams([
                     @NamedParam(value = 'rows', type = Integer.class),
                     @NamedParam(value = 'columns', type = Integer.class),
@@ -57,7 +57,7 @@ trait GameDataTestBuilder extends DataTest {
         return this
     }
 
-    GameDataTestBuilder and(
+    GameDataTest and(
             @NamedParams([
                     @NamedParam(value = 'rows', type = Integer.class),
                     @NamedParam(value = 'columns', type = Integer.class),
@@ -70,27 +70,27 @@ trait GameDataTestBuilder extends DataTest {
         return this
     }
 
-    GameDataTestBuilder withRows(Integer rows) {
+    GameDataTest withRows(Integer rows) {
         amountRows = rows
         return this
     }
 
-    GameDataTestBuilder withColumns(Integer columns) {
+    GameDataTest withColumns(Integer columns) {
         amountColumns = columns
         return this
     }
 
-    GameDataTestBuilder andColumns(Integer columns) {
+    GameDataTest andColumns(Integer columns) {
         amountColumns = columns
         return this
     }
 
-    GameDataTestBuilder withMines(Integer mines) {
+    GameDataTest withMines(Integer mines) {
         amountMines = mines
         return this
     }
 
-    GameDataTestBuilder withMine(Integer row, Integer column) {
+    GameDataTest withMine(Integer row, Integer column) {
         tiles.add(Tile.withMine(row, column))
         return this
     }

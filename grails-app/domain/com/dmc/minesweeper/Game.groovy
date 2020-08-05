@@ -1,11 +1,13 @@
 package com.dmc.minesweeper
 
+import com.dmc.minesweeper.security.User
 import grails.compiler.GrailsCompileStatic
 
 
 @GrailsCompileStatic
 class Game implements Entity {
 
+    User user
     Board board
 
     enum GameStatus {

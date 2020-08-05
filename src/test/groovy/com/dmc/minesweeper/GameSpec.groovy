@@ -1,6 +1,6 @@
 package com.dmc.minesweeper
 
-import com.dmc.minesweeper.data.GameDataTestBuilder
+import com.dmc.minesweeper.data.GameDataTest
 import spock.lang.Specification
 
 import static com.dmc.minesweeper.Game.GameStatus.GAME_OVER
@@ -8,7 +8,7 @@ import static com.dmc.minesweeper.Game.GameStatus.PLAYING
 import static com.dmc.minesweeper.util.GameMatcher.*
 import static spock.util.matcher.HamcrestSupport.expect
 
-class GameSpec extends Specification implements GameDataTestBuilder {
+class GameSpec extends Specification implements GameDataTest {
 
 
     void "test can create a Game defining columns, rows and mines"() {

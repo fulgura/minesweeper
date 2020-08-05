@@ -63,6 +63,11 @@ dependencies {
     testCompile "org.mockito:mockito-core"
     testCompile "io.micronaut:micronaut-http-client"
     testCompile "org.grails:grails-web-testing-support"
+
+    /**
+     * Add security layer
+     */
+    compile 'org.grails.plugins:spring-security-rest:3.0.0.RC1'
 }
 
 bootRun {
