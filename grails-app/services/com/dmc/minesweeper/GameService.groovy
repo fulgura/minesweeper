@@ -11,11 +11,7 @@ class GameService {
 
         Game game = new Game(
                 user: user,
-                board: new Board(
-                        rows: rows,
-                        columns: columns,
-                        mines: mines
-                )
+                board: new Board(columns, rows, mines)
         )
 
         if (game.validate()) {

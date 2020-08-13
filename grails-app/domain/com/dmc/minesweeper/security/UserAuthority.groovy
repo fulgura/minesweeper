@@ -1,6 +1,6 @@
 package com.dmc.minesweeper.security
 
-import com.dmc.minesweeper.Entity
+
 import grails.compiler.GrailsCompileStatic
 import grails.gorm.DetachedCriteria
 import groovy.transform.ToString
@@ -8,7 +8,7 @@ import org.codehaus.groovy.util.HashCodeHelper
 
 @GrailsCompileStatic
 @ToString(cache = true, includeNames = true, includePackage = false)
-class UserAuthority implements Entity {
+class UserAuthority implements Serializable {
 
     private static final long serialVersionUID = 1
 
@@ -34,15 +34,15 @@ class UserAuthority implements Entity {
         hashCode
     }
 
-    static UserAuthority get(String userId, String authorityId) {
+    static UserAuthority get(Long userId, Long authorityId) {
         criteriaFor(userId, authorityId).get()
     }
 
-    static boolean exists(String userId, String authorityId) {
+    static boolean exists(Long userId, Long authorityId) {
         criteriaFor(userId, authorityId).count()
     }
 
-    private static DetachedCriteria criteriaFor(String userId, String authorityId) {
+    private static DetachedCriteria criteriaFor(Long userId, Long authorityId) {
         UserAuthority.where {
             user == User.get(userId) &&
                     authority == Authority.get(authorityId)

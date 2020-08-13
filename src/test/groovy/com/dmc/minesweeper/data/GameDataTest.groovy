@@ -3,6 +3,7 @@ package com.dmc.minesweeper.data
 import com.dmc.minesweeper.Board
 import com.dmc.minesweeper.Game
 import com.dmc.minesweeper.Tile
+import com.dmc.minesweeper.security.User
 import grails.testing.gorm.DataTest
 import groovy.transform.NamedParam
 import groovy.transform.NamedParams
@@ -33,10 +34,8 @@ trait GameDataTest extends DataTest {
 
     private void buildData() {
         game = new Game(
-                board: new Board(
-                        columns: amountColumns,
-                        rows: amountRows,
-                        mines: amountMines)
+                user: new User(username: 'test', password: 'test'),
+                board: new Board(amountColumns, amountRows, amountMines)
         ).save(failOnError: true, flush: true)
 
         tiles.each { Tile tile ->

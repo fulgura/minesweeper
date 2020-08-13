@@ -1,8 +1,7 @@
 package com.dmc.minesweeper
 
-import com.dmc.minesweeper.command.NewGameCommand
-import com.dmc.minesweeper.security.SecuredController
-import com.dmc.minesweeper.security.User
+import com.dmc.minesweeper.command.CreateGameCommand
+import com.dmc.minesweeper.command.ReadGameCommand
 import grails.gorm.transactions.Transactional
 import groovy.transform.CompileStatic
 
@@ -10,30 +9,32 @@ import static org.springframework.http.HttpStatus.CREATED
 
 @CompileStatic
 @Transactional
-class GameController implements SecuredController {
+class GameController  {
 
     static responseFormats = ['json', 'xml']
 
     GameService gameService
 
     /**
-     * POST /api/game
-     * body { //
-     *     rows: 10,
-     *     columns: 12,
-     *     mines: 20
-     * // } //
-     * * @param commandObject
+     * curl --location --request POST 'http://localhost:8080/api/game' \
+     * --header 'Content-Type: application/json' \
+     * --header 'Authorization: Bearer XYZ' \
+     * --data-raw '{ //
+     *      "rows": 10,
+     *      "columns": 10,
+     *      "mines": 6
+     * // }'
+     * @param command
+     * @return
      */
-    def newGame(NewGameCommand command) {
+    def create(CreateGameCommand command) {
 
         if (!command.validate()) {
             respond command.errors, view: 'create' // STATUS CODE 422
             return
 
         } else {
-
-            Game game = gameService.createGame((User) currentUser(), command.rows, command.columns, command.mines)
+            Game game = gameService.createGame(params.user, command.rows, command.columns, command.mines)
 
             if (game.hasErrors()) {
                 respond game.errors, view: 'create' // STATUS CODE 422
@@ -41,6 +42,23 @@ class GameController implements SecuredController {
                 respond game, [status: CREATED, view: 'show']
             }
         }
+    }
+
+    /**
+     * curl --location --request POST 'http://localhost:8080/api/game' \
+     * --header 'Content-Type: application/json' \
+     * --header 'Authorization: Bearer XXXX' \
+     * --data-raw '{//
+     *      "rows": 10,
+     *      "columns": 10,
+     *      "mines": 6
+     *  // }'
+     * @param gameId
+     */
+
+    def show(ReadGameCommand command) {
+        //TODO: Check permission for resource by user request
+        respond Game.get(command.id)
     }
 
 

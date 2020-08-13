@@ -1,6 +1,6 @@
 package com.dmc.minesweeper.security
 
-import com.dmc.minesweeper.Entity
+
 import grails.compiler.GrailsCompileStatic
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
@@ -8,7 +8,7 @@ import groovy.transform.ToString
 @GrailsCompileStatic
 @EqualsAndHashCode(includes = 'username')
 @ToString(includes = 'username', includeNames = true, includePackage = false)
-class User implements Entity {
+class User implements Serializable {
 
     String username
     String password

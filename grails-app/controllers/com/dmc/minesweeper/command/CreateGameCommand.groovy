@@ -4,7 +4,7 @@ import grails.compiler.GrailsCompileStatic
 import grails.validation.Validateable
 
 @GrailsCompileStatic
-class NewGameCommand implements Validateable {
+class CreateGameCommand implements Validateable {
 
     Integer rows
     Integer columns

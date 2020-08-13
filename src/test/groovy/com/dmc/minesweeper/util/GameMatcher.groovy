@@ -24,12 +24,12 @@ class GameMatcher {
 
             @Override
             void describeTo(Description description) {
-                description.appendText("game should contain ${mines} mines")
+                description.appendText("show should contain ${mines} mines")
             }
 
             @Override
             protected void describeMismatchSafely(Game game, Description mismatchDescription) {
-                mismatchDescription.appendValue("game has ${game.board.getTilesWithMines().size()}")
+                mismatchDescription.appendValue("show has ${game.board.getTilesWithMines().size()}")
             }
         }
     }
@@ -51,12 +51,12 @@ class GameMatcher {
 
             @Override
             void describeTo(Description description) {
-                description.appendText("game should contain ${columns} columns")
+                description.appendText("show should contain ${columns} columns")
             }
 
             @Override
             protected void describeMismatchSafely(Game game, Description mismatchDescription) {
-                mismatchDescription.appendValue("game has ${game.board.columns}")
+                mismatchDescription.appendValue("show has ${game.board.columns}")
             }
         }
     }
@@ -78,12 +78,12 @@ class GameMatcher {
 
             @Override
             void describeTo(Description description) {
-                description.appendText("game should contain ${rows} rows")
+                description.appendText("show should contain ${rows} rows")
             }
 
             @Override
             protected void describeMismatchSafely(Game game, Description mismatchDescription) {
-                mismatchDescription.appendValue("game has ${game.board.rows}")
+                mismatchDescription.appendValue("show has ${game.board.rows}")
             }
         }
     }
@@ -106,12 +106,12 @@ class GameMatcher {
 
             @Override
             void describeTo(Description description) {
-                description.appendText("game should be ${status} status")
+                description.appendText("show should be ${status} status")
             }
 
             @Override
             protected void describeMismatchSafely(Game game, Description mismatchDescription) {
-                mismatchDescription.appendValue("game was ${game.status}")
+                mismatchDescription.appendValue("show was ${game.status}")
             }
         }
     }

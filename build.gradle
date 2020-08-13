@@ -68,6 +68,10 @@ dependencies {
      * Add security layer
      */
     compile 'org.grails.plugins:spring-security-rest:3.0.0.RC1'
+
+    /// MySQL driver
+    //runtime 'mysql:mysql-connector-java:8.0.11'
+    runtime 'mysql:mysql-connector-java:5.1.40'
 }
 
 bootRun {

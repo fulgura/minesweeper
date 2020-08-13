@@ -38,6 +38,7 @@ grails {
                     [pattern: '/api/login', access: ['permitAll']],
                     [pattern: '/api/logout', access: ['isFullyAuthenticated()']],
                     [pattern: '/api/game', access: ['isFullyAuthenticated()']],
+                    [pattern: '/api/user', access: ['isFullyAuthenticated()']],
                     [pattern: '/**', access: ['isFullyAuthenticated()']]
             ]
         }

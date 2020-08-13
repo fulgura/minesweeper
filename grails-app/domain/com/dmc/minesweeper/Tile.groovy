@@ -7,7 +7,7 @@ import grails.compiler.GrailsCompileStatic
 class Tile implements Entity {
 
     Integer row
-    Integer column
+    Integer col
     /**
      * -1 means a mine in this tile
      * from 0 to 9 represents the total amount of tile with mines
@@ -19,7 +19,7 @@ class Tile implements Entity {
 
     static constraints = {
         row nullable: false
-        column nullable: false
+        col nullable: false
         value nullable: false, range: -1..8
     }
 
@@ -28,11 +28,10 @@ class Tile implements Entity {
     }
 
     static Tile withMine(Integer row, Integer column) {
-        return new Tile(row: row, column: column, value: -1)
+        return new Tile(row: row, col: column, value: -1)
     }
 
     static Tile withoutMine(Integer row, Integer column) {
-        return new Tile(row: row, column: column, value: 0)
+        return new Tile(row: row, col: column, value: 0)
     }
-
 }

@@ -1,0 +1,20 @@
+import com.dmc.minesweeper.Game
+import com.dmc.minesweeper.Tile
+
+model {
+    Game game
+}
+
+json {
+    id game.id
+    status game.status
+    board {
+        columns game.board.columns
+        rows game.board.rows
+        tiles(game.board.tiles) { Tile tile ->
+            row tile.row
+            column tile.col
+            value tile.value
+        }
+    }
+}

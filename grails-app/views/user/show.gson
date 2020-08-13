@@ -1,0 +1,13 @@
+import com.dmc.minesweeper.Game
+
+model {
+    Map<String, ?> results
+}
+
+json {
+    user results.username
+    games(results.game) { Game game ->
+        id game.id
+        status game.status
+    }
+}
