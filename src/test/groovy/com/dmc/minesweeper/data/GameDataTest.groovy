@@ -52,7 +52,7 @@ trait GameDataTest extends DataTest {
     ) {
         if (map.rows) this.amountRows = map.rows
         if (map.columns) this.amountColumns = map.columns
-        if (map.columns) this.amountMines = map.columns
+        if (map.mines) this.amountMines = map.mines
         return this
     }
 
@@ -65,9 +65,10 @@ trait GameDataTest extends DataTest {
     ) {
         if (map.rows) this.amountRows = map.rows
         if (map.columns) this.amountColumns = map.columns
-        if (map.columns) this.amountMines = map.columns
+        if (map.mines) this.amountMines = map.mines
         return this
     }
+
 
     GameDataTest withRows(Integer rows) {
         amountRows = rows

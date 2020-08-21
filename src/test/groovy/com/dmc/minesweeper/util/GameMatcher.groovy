@@ -1,7 +1,7 @@
 package com.dmc.minesweeper.util
 
-
 import com.dmc.minesweeper.Game
+import com.dmc.minesweeper.Position
 import org.hamcrest.Description
 import org.hamcrest.TypeSafeMatcher
 
@@ -106,12 +106,41 @@ class GameMatcher {
 
             @Override
             void describeTo(Description description) {
-                description.appendText("show should be ${status} status")
+                description.appendText("game should be ${status} status")
             }
 
             @Override
             protected void describeMismatchSafely(Game game, Description mismatchDescription) {
-                mismatchDescription.appendValue("show was ${game.status}")
+                mismatchDescription.appendValue("was ${game.status}")
+            }
+        }
+    }
+
+    /**
+     * Matcher an instance of {@link Game} has a tile
+     * in row and column arguments without neighbouring bombs
+     *
+     * @param row
+     * @param column
+     * @return an instance of {@link TypeSafeMatcher}
+     */
+    static TypeSafeMatcher hasZeroNeighbouringMinesIn(Integer row, Integer column) {
+
+        return new TypeSafeMatcher<Game>() {
+
+            @Override
+            protected boolean matchesSafely(Game game) {
+                return game.board.lookupTile(Position.For(row, column)).hasZeroNeighbouringBombs()
+            }
+
+            @Override
+            void describeTo(Description description) {
+                description.appendText("game should have zero neighbouring Bombs")
+            }
+
+            @Override
+            protected void describeMismatchSafely(Game game, Description mismatchDescription) {
+                mismatchDescription.appendValue("was ${game.board.lookupTile(Position.For(row, column)).numberOfMines()}")
             }
         }
     }

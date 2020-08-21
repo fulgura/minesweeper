@@ -3,6 +3,8 @@ package com.dmc.minesweeper
 import com.dmc.minesweeper.security.User
 import grails.compiler.GrailsCompileStatic
 
+import static Position.For
+
 
 @GrailsCompileStatic
 class Game implements Entity {
@@ -17,25 +19,21 @@ class Game implements Entity {
     GameStatus status = GameStatus.PLAYING
 
     static constraints = {
+        user nullable: false
         board nullable: false
     }
 
-    Tile reveal(Integer row, Integer column) {
+    void uncover(Integer row, Integer column) {
 
-        Tile selectedTile = board.getTile row, column
+        Tile uncoveredTile = board.uncover(For(row, column))
+        // TODO: Throw an exception if a cell has not a bomb
 
-        // TODO: replace with GameStatus Strategy
-        if (selectedTile && selectedTile.hasMine()) {
+        if (uncoveredTile.isMined()) {
             this.status = GameStatus.GAME_OVER
-            this.save(failOnError: true)
-
-        } else {
-            selectedTile = Tile.withoutMine row, column
-            board.addToTiles(selectedTile.save(failOnError: true))
-            this.save(failOnError: true)
+            // TODO: release all bombs!
         }
 
-        return selectedTile
+        this.save(failOnError: true)
     }
 
 }

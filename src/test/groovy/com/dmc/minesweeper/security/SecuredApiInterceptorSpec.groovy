@@ -3,7 +3,7 @@ package com.dmc.minesweeper.security
 import grails.testing.web.interceptor.InterceptorUnitTest
 import spock.lang.Specification
 
-class SecuredInterceptorSpec extends Specification implements InterceptorUnitTest<SecuredInterceptor> {
+class SecuredApiInterceptorSpec extends Specification implements InterceptorUnitTest<SecuredApiInterceptor> {
 
     def setup() {
     }
@@ -14,7 +14,7 @@ class SecuredInterceptorSpec extends Specification implements InterceptorUnitTes
 
     void "Test secured interceptor matching"() {
         when:"A request matches the interceptor"
-        withRequest(controller:"secured")
+        withRequest(controller:"game")
 
         then:"The interceptor does match"
         interceptor.doesMatch()

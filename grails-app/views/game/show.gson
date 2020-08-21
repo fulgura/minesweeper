@@ -14,7 +14,7 @@ json {
         tiles(game.board.tiles) { Tile tile ->
             row tile.row
             column tile.col
-            value tile.value
+            value tile.content
         }
     }
 }

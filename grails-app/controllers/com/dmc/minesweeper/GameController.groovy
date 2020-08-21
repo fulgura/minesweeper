@@ -2,6 +2,7 @@ package com.dmc.minesweeper
 
 import com.dmc.minesweeper.command.CreateGameCommand
 import com.dmc.minesweeper.command.ReadGameCommand
+import com.dmc.minesweeper.security.User
 import grails.gorm.transactions.Transactional
 import groovy.transform.CompileStatic
 
@@ -34,7 +35,7 @@ class GameController  {
             return
 
         } else {
-            Game game = gameService.createGame(params.user, command.rows, command.columns, command.mines)
+            Game game = gameService.createGame(params.user as User, command.rows, command.columns, command.mines)
 
             if (game.hasErrors()) {
                 respond game.errors, view: 'create' // STATUS CODE 422

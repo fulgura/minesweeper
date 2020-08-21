@@ -8,55 +8,77 @@ class Board implements Entity {
 
     Integer columns
     Integer rows
-    List<Mine> mines
-
     List<Tile> tiles
 
     static belongsTo = Game
-    static hasMany = [tiles: Tile, mines: Mine]
+    static hasMany = [tiles: Tile]
 
     Board(Integer columns, Integer rows, Integer mines) {
         this.columns = columns
         this.rows = rows
-        this.mines = mines
-        this.mines.times {
+        mines.times {
             addToTiles(GameUtil.randomTile(this.rows, this.columns).save())
         }
     }
     static constraints = {
         columns range: 0..100
         rows range: 0..100
-        mines range: 0..50
     }
 
     List<Tile> getTilesWithMines() {
-        return tiles.findAll { it.hasMine() }
+        return tiles.findAll { it.isMined() }
     }
 
-    boolean hasTile(Integer row, Integer column) {
-        validate row, column
-        return tiles.find { it.row == row && it.col == column }
+    boolean hasTile(Position position) {
+        validate position
+        return tiles.find { it.position == position }
     }
 
-    Tile getTile(Integer row, Integer column) {
-        validate row, column
-        return tiles.find { it.row == row && it.col == column }
+    Tile lookupTile(Position position) {
+        validate position
+        return tiles.find { it.position == position }
+    }
+
+    Tile uncover(Position position) {
+        Tile tile = lookupTile position
+        if (!tile) {
+            tile = buildTileFor position
+        }
+
+        return tile
+    }
+
+    private Tile buildTileFor(Position position) {
+
+        Integer numberOfMinesInNeighbours = 0
+
+        for (Position neighbourPosition in position.neighbourPositions(rows, columns)) {
+            Tile neighbour = lookupTile(neighbourPosition)
+            if (neighbour?.isMined()) {
+                numberOfMinesInNeighbours++
+            }
+        }
+
+        Tile newTile = Tile.withMinesInNeighbours(position, numberOfMinesInNeighbours)
+        addToTiles(newTile)
+
+        return newTile
     }
 
     /**
-     * Validates if row and column param
-     * are in range for board configuration
-     * @param row
-     * @param column
+     * Validates in an Position is valid for the current board configuration.
+     *
+     * @param position
      */
-    void validate(Integer row, Integer column) {
+    void validate(Position position) {
 
-        if (!(row in 0..(rows))) {
-            throw new IndexOutOfBoundsException(row)
+        //TODO: CHeck if this is not a responsability of Position class
+        if (!position.isInRowsRange(rows)) {
+            throw new IndexOutOfBoundsException(position.row)
         }
 
-        if (!(column in 0..(columns))) {
-            throw new IndexOutOfBoundsException(row)
+        if (!position.isInColumnsRange(columns)) {
+            throw new IndexOutOfBoundsException(position.col)
         }
     }
 }
