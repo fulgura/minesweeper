@@ -15,16 +15,15 @@ class Tile implements Entity {
      * around.
      */
     Content content
-    Status status = Status.uncovered
+    Status status = Status.UNCOVERED
     Position position
-
 
     static belongsTo = Board
 
     static constraints = {
         position nullable: false
         status nullable: false
-        content nullable: false, range: -1..8
+        content nullable: false
     }
 
     static embedded = ['position']
@@ -86,7 +85,6 @@ class Tile implements Entity {
     }
 
     enum Status {
-        uncovered, covered, flagged
+        UNCOVERED, COVERED, FLAGGED
     }
-
 }
