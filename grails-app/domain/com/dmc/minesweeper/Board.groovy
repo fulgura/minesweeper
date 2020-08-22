@@ -74,11 +74,11 @@ class Board implements Entity {
 
         //TODO: CHeck if this is not a responsability of Position class
         if (!position.isInRowsRange(rows)) {
-            throw new IndexOutOfBoundsException(position.row)
+            throw new IndexOutOfBoundsException(position.row.toString())
         }
 
         if (!position.isInColumnsRange(columns)) {
-            throw new IndexOutOfBoundsException(position.col)
+            throw new IndexOutOfBoundsException(position.col.toString())
         }
     }
 }
