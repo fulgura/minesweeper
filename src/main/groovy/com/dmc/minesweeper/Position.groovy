@@ -39,7 +39,7 @@ class Position {
         return isInRowsRange(rows) && isInColumnsRange(columns)
     }
 
-    private List<Position> neighbourPositions(Integer rows, Integer columns) {
+    List<Position> neighbourPositions(Integer rows, Integer columns) {
 
         return [
                 [row-1, col-1],[row-1, col],[row-1, col+1],
