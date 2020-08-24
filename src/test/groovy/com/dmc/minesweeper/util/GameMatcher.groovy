@@ -130,7 +130,7 @@ class GameMatcher {
 
             @Override
             protected boolean matchesSafely(Game game) {
-                return game.board.lookupTile(Position.For(row, column)).hasZeroNeighbouringBombs()
+                return game.board.lookupTile(Position.Pos(row, column)).hasZeroNeighbouringBombs()
             }
 
             @Override
@@ -140,7 +140,7 @@ class GameMatcher {
 
             @Override
             protected void describeMismatchSafely(Game game, Description mismatchDescription) {
-                mismatchDescription.appendValue("was ${game.board.lookupTile(Position.For(row, column)).numberOfMines()}")
+                mismatchDescription.appendValue("was ${game.board.lookupTile(Position.Pos(row, column)).numberOfMines()}")
             }
         }
     }

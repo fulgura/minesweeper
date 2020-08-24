@@ -1,56 +1,55 @@
 package com.dmc.minesweeper
 
+import groovy.transform.EqualsAndHashCode
 import groovy.transform.Immutable
 
 @Immutable
+@EqualsAndHashCode(allProperties = true)
 class Position {
 
     final Integer row
     final Integer col
 
-    boolean equals(o) {
-        if (this.is(o)) return true
-        if (getClass() != o.class) return false
-
-        Position position = (Position) o
-
-        if (col != position.col) return false
-        if (row != position.row) return false
-
-        return true
-    }
-
-    int hashCode() {
-        int result
-        result = (row != null ? row.hashCode() : 0)
-        result = 31 * result + (col != null ? col.hashCode() : 0)
-        return result
-    }
-
     boolean isInRowsRange(Integer rows) {
-        return row in 0..(rows)
+        return new IntRange(true, 0, rows).contains(row)
     }
 
     boolean isInColumnsRange(Integer columns) {
-        return col in 0..(columns)
+        return new IntRange(true, 0, columns).contains(col)
     }
 
     boolean isInRange(Integer rows, Integer columns) {
         return isInRowsRange(rows) && isInColumnsRange(columns)
     }
 
-    List<Position> neighbourPositions(Integer rows, Integer columns) {
+    /**
+     *
+     * @param rows
+     * @param columns
+     * @return
+     */
+    List<Position> neighbouringPositions(Integer rows, Integer columns) {
 
         return [
-                [row-1, col-1],[row-1, col],[row-1, col+1],
-                [row,   col-1],             [row, col+1],
-                [row+1, col-1],[row+1, col],[row+1, col+1]
-        ].findAll {Integer rowPos, Integer colPos ->
-            Position.For(rowPos, colPos).isInRange(rows, columns)
+                Pos(row - 1, col - 1), Pos(row - 1, col), Pos(row - 1, col + 1),
+                Pos(row, col - 1), Pos(row, col + 1),
+                Pos(row + 1, col - 1), Pos(row + 1, col), Pos(row + 1, col + 1)
+        ].findAll { Position position ->
+            position.isInRange(rows, columns)
         }
     }
 
-    static Position For(Integer row, Integer col) {
+    String toString() {
+        return "Position(${row}, ${col})"
+    }
+    /**
+     *
+     * @param row
+     * @param col
+     * @return
+     */
+    static Position Pos(Integer row, Integer col) {
         return new Position(row, col)
     }
+
 }
