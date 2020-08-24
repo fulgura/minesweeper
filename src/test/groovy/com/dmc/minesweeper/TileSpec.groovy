@@ -4,13 +4,9 @@ import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
 import spock.lang.Unroll
 
-import static com.dmc.minesweeper.Tile.Content.MINE
-import static com.dmc.minesweeper.Tile.Content.ONE_NEIGHBOURING_MINES
-import static com.dmc.minesweeper.Tile.Content.TWO_NEIGHBOURING_MINES
-import static com.dmc.minesweeper.Tile.Content.ZERO_NEIGHBOURING_MINES
-import static com.dmc.minesweeper.Tile.Status.COVERED
-import static com.dmc.minesweeper.Tile.Status.FLAGGED
-import static com.dmc.minesweeper.Tile.Status.UNCOVERED
+import static com.dmc.minesweeper.Position.Pos
+import static com.dmc.minesweeper.Tile.Content.*
+import static com.dmc.minesweeper.Tile.Status.*
 
 class TileSpec extends Specification implements DomainUnitTest<Tile> {
 
@@ -62,17 +58,17 @@ class TileSpec extends Specification implements DomainUnitTest<Tile> {
             expectedErrorCode == domain.errors['position']?.code
 
         where:
-            aPosition          || expected | expectedErrorCode
-            null               || false    | 'nullable'
-            Position.For(1, 2) || true     | null
-            Position.For(0, 0) || true     | null
+            aPosition || expected | expectedErrorCode
+            null      || false    | 'nullable'
+            Pos(1, 2) || true     | null
+            Pos(0, 0) || true     | null
     }
 
 
     void 'test can create a tile with a mine'() {
 
         when:
-            Tile tile = Tile.withMine(Position.For(1, 3))
+            Tile tile = Tile.withMine(Pos(1, 3))
 
         then:
             tile.isMined()

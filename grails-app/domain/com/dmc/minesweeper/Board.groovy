@@ -52,7 +52,7 @@ class Board implements Entity {
 
         Integer numberOfMinesInNeighbours = 0
 
-        for (Position neighbourPosition in position.neighbourPositions(rows, columns)) {
+        for (Position neighbourPosition in position.neighbouringPositions(rows, columns)) {
             Tile neighbour = lookupTile(neighbourPosition)
             if (neighbour?.isMined()) {
                 numberOfMinesInNeighbours++

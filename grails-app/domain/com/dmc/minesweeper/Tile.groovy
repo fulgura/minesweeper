@@ -41,11 +41,11 @@ class Tile implements Entity {
     }
 
     static Tile withMine(Integer row, Integer column) {
-        return withMine(Position.For(row, column))
+        return withMine(Position.Pos(row, column))
     }
 
     static Tile withoutMine(Integer row, Integer column) {
-        return withoutMine(Position.For(row, column))
+        return withoutMine(Position.Pos(row, column))
     }
 
     static Tile withMine(Position position) {

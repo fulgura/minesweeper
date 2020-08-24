@@ -3,7 +3,7 @@ package com.dmc.minesweeper
 import com.dmc.minesweeper.security.User
 import grails.compiler.GrailsCompileStatic
 
-import static Position.For
+import static Position.Pos
 
 
 @GrailsCompileStatic
@@ -25,7 +25,7 @@ class Game implements Entity {
 
     void uncover(Integer row, Integer column) {
 
-        Tile uncoveredTile = board.uncover(For(row, column))
+        Tile uncoveredTile = board.uncover(Pos(row, column))
         // TODO: Throw an exception if a cell has not a bomb
 
         if (uncoveredTile.isMined()) {
