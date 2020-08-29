@@ -1,5 +1,6 @@
 package com.dmc.minesweeper
 
+
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.Immutable
 
@@ -30,12 +31,12 @@ class Position {
      */
     List<Position> neighbouringPositions(Integer rows, Integer columns) {
 
-        return [
-                Pos(row - 1, col - 1), Pos(row - 1, col), Pos(row - 1, col + 1),
-                Pos(row, col - 1), Pos(row, col + 1),
-                Pos(row + 1, col - 1), Pos(row + 1, col), Pos(row + 1, col + 1)
-        ].findAll { Position position ->
-            position.isInRange(rows, columns)
+        return (-1..1).collect { Integer neighbourRow ->
+            (-1..1).collect { Integer neighbourColumn ->
+                Pos(row + neighbourRow, col - neighbourColumn)
+            }
+        }.flatten().findAll { Position position ->
+            position != this && position.isInRange(rows, columns)
         }
     }
 
