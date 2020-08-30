@@ -10,7 +10,7 @@ import static org.springframework.http.HttpStatus.CREATED
 
 @CompileStatic
 @Transactional
-class GameController  {
+class GameController {
 
     static responseFormats = ['json', 'xml']
 
