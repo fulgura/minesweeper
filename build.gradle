@@ -61,6 +61,10 @@ dependencies {
     runtime "javax.xml.bind:jaxb-api:2.3.0"
     testCompile "org.grails:grails-gorm-testing-support"
     testCompile "org.mockito:mockito-core"
+    /**
+     * To test REST part of the application,
+     * we use Micronaut’s HttpClient. We need to add the dependency:
+     */
     testCompile "io.micronaut:micronaut-http-client"
     testCompile "org.grails:grails-web-testing-support"
 
@@ -72,12 +76,15 @@ dependencies {
     /// MySQL driver
     //runtime 'mysql:mysql-connector-java:8.0.11'
     runtime 'mysql:mysql-connector-java:5.1.40'
+
+
+
 }
 
 bootRun {
     jvmArgs(
-        '-Dspring.output.ansi.enabled=always', 
-        '-noverify', 
+        '-Dspring.output.ansi.enabled=always',
+        '-noverify',
         '-XX:TieredStopAtLevel=1',
         '-Xmx1024m')
     sourceResources sourceSets.main

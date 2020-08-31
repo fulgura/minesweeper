@@ -12,8 +12,7 @@ json {
         columns game.board.columns
         rows game.board.rows
         tiles(game.board.tiles) { Tile tile ->
-            row tile.row
-            column tile.col
+            position tile.position
             value tile.content
         }
     }
